@@ -17,7 +17,7 @@ static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray4, col_gray1, col_gray2 },
 	[SchemeSel]  = { col_gray1, col_cyan,  col_cyan  },
-	[SchemeTitle]  = { col_gray4, col_gray1,  col_cyan  },
+	[SchemeTitle]  = { col_gray1, col_gray1,  col_cyan  },
 };
 
 /* tagging */
@@ -79,7 +79,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_j,      rotatestack,    {.i = +1 } },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
+	// { MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
