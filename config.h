@@ -13,6 +13,8 @@ static const int showbar            = 1;     /* 0 means no bar */
 static const int topbar             = 1;     /* 0 means bottom bar */
 static const char *fonts[]          = { "RobotoMono Nerd Font:size=10", "Material:size=12", "FontAwesome:size=11", "Font Awesome 5 Free:size=11", "Weather Icons:size=10"};
 static const char dmenufont[]       = "RobotoMono Nerd Font:size=10";
+static unsigned int baralpha        = 0xd0;
+static unsigned int borderalpha     = OPAQUE;
 
 static char normbgcolor[]           = "#222222";
 static char normbordercolor[]       = "#444444";
