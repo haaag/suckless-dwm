@@ -33,7 +33,7 @@ typedef struct {
 } Sp;
 const char *spcmd1[] = {"st", "-n", "spterm", "-g", "120x34", NULL };
 const char *spcmd2[] = {"st", "-n", "spfm", "-g", "144x41", "-e", "nnn", NULL };
-const char *spcmd3[] = {"st", "-n", "spmusic", "-g", "144x41", "-e", "ncmpcpp", NULL };
+const char *spcmd3[] = {"st", "-n", "spmusic", "-c", "spmusic", "-g", "120x25", "-e", "ncmpcpp-ueberzug", NULL};
 const char *spcmd4[] = {"st", "-n", "spcode", "-g", "184x41", NULL };
 static Sp scratchpads[] = {
 	/* name          cmd  */
@@ -65,13 +65,13 @@ static const Rule rules[] = {
     { "tidal-hifi",             "tidal-hifi", 	    "tidal-hifi",       1 << 3,       0,            -1 },
     { "Galculator",             "galculator", 	    "galculator",       0,            1,            -1 },
     { "Gucharmap",              NULL,               NULL,               0,            1,            -1 },
-    { "mpv",                    NULL,               NULL,               0,            1,            -1 },
+    { "mpv",                    NULL,               NULL,               1 << 5,       1,            -1 },
     { "Peek",                   "peek",             NULL,               0,            1,            -1 },
     { "Tk",                     "tk",               NULL,               0,            1,            -1 },
     { "Sxiv",                   NULL,               NULL,               0,            1,            -1 },
     { NULL,						"spterm",			NULL,				SPTAG(0),	  1,            -1 },
     { NULL,		  				"spfm",		    	NULL,		    	SPTAG(1),	  1,            -1 },
-    { NULL,		  				"spmusic",	    	NULL,		    	SPTAG(2),	  1,            -1 },
+    { NULL,		  				"spmusic",	    	"ncmpcpp",			SPTAG(2),	  1,            -1 },
     { NULL,		  				"spcode",	    	NULL,		    	SPTAG(3),	  1,            -1 },
 };
 
@@ -166,7 +166,7 @@ static const Key keys[] = {
 	{ MODKEY,            		    XK_y,  	   togglescratch,  {.ui = 0 } },
 	{ MODKEY,            		    XK_u,      togglescratch,  {.ui = 1 } },
 	{ MODKEY,            		    XK_x,      togglescratch,  {.ui = 2 } },
-	{ MODKEY|ShiftMask,            	XK_x,      togglescratch,  {.ui = 3 } },
+	{ MODKEY|ShiftMask,            	XK_x,      togglescratch,  {.ui = 4 } },
 
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
