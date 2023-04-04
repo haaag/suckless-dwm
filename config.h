@@ -88,6 +88,8 @@ static const Layout layouts[] = {
 	{ "[]=",      tile },    /* Default: Master on left, slaves on right */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
+	{ "|M|",      centeredmaster },
+	{ ">M>",      centeredfloatingmaster },
 };
 
 /* key definitions */
@@ -153,6 +155,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} }, /* title */
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} }, /* floating */
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} }, /* monocle */
+	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[3]} }, /* centeredmaster */
+	{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[4]} }, /* centeredfloatingmaster */
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
@@ -166,7 +170,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_minus,  setgaps,        {.i = GAP_RESET } },
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = GAP_TOGGLE} },
 	{ MODKEY,            		    XK_y,  	   togglescratch,  {.ui = 0 } },
-	{ MODKEY,            		    XK_u,      togglescratch,  {.ui = 1 } },
+	// { MODKEY,            		    XK_u,      togglescratch,  {.ui = 1 } },
 	{ MODKEY,            		    XK_x,      togglescratch,  {.ui = 2 } },
 	{ MODKEY|ShiftMask,            	XK_x,      togglescratch,  {.ui = 4 } },
 
