@@ -1,7 +1,11 @@
 /* See LICENSE file for copyright and license details. */
 
+/* Constants */
+#define TERMINAL "st"
+#define TERMCLASS "St"
+
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const Gap default_gap        = {.isgap = 1, .realgap = 6, .gappx = 6};
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
@@ -33,16 +37,14 @@ typedef struct {
 	const char *name;
 	const void *cmd;
 } Sp;
-const char *spcmd1[] = {"st", "-n", "spterm", "-g", "120x34", NULL };
-const char *spcmd2[] = {"st", "-n", "spfm", "-g", "144x41", "-e", "nnn", NULL };
-const char *spcmd3[] = {"st", "-n", "spmusic", "-c", "spmusic", "-g", "120x25", "-e", "ncmpcpp-ueberzug", NULL};
-const char *spcmd4[] = {"st", "-n", "spcode", "-g", "184x41", NULL };
+const char *spcmd1[] = {TERMINAL, "-n", "spterm", "-g", "120x34", NULL };
+const char *spcmd2[] = {TERMINAL, "-n", "spfm", "-g", "144x41", "-e", "nnn", NULL };
+const char *spcmd3[] = {TERMINAL, "-n", "spmusic", "-c", "spmusic", "-g", "120x25", "-e", "ncmpcpp-ueberzug", NULL};
 static Sp scratchpads[] = {
 	/* name          cmd  */
 	{"spterm",      spcmd1},
 	{"spranger",    spcmd2},
 	{"keepassxc",   spcmd3},
-	{"spcode",      spcmd4},
 };
 
 static const XPoint stickyicon[]    = { {0,0}, {4,0}, {4,8}, {2,6}, {0,8}, {0,0} }; /* represents the icon as an array of vertices */
@@ -172,7 +174,6 @@ static const Key keys[] = {
 	{ MODKEY,            		    XK_y,  	   togglescratch,  {.ui = 0 } },
 	// { MODKEY,            		    XK_u,      togglescratch,  {.ui = 1 } },
 	{ MODKEY,            		    XK_x,      togglescratch,  {.ui = 2 } },
-	{ MODKEY|ShiftMask,            	XK_x,      togglescratch,  {.ui = 4 } },
 
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
