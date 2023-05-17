@@ -5,7 +5,7 @@
 #define TERMCLASS "St"
 
 /* appearance */
-static const unsigned int borderpx  = 2;        /* border pixel of windows */
+static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const Gap default_gap        = {.isgap = 1, .realgap = 6, .gappx = 6};
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
@@ -37,14 +37,16 @@ typedef struct {
 	const char *name;
 	const void *cmd;
 } Sp;
-const char *spcmd1[] = {TERMINAL, "-n", "spterm", "-g", "120x34", NULL };
+const char *spcmd1[] = {TERMINAL, "-n", "spterm", "-c", "spterm", "-g", "120x34", NULL };
 const char *spcmd2[] = {TERMINAL, "-n", "spfm", "-g", "144x41", "-e", "nnn", NULL };
-const char *spcmd3[] = {TERMINAL, "-n", "spmusic", "-c", "spmusic", "-g", "120x25", "-e", "ncmpcpp-ueberzug", NULL};
+const char *spcmd3[] = {TERMINAL, "-n", "spmusic", "-c", "spmusic", "-g", "140x30", "-e", "ncmpcpp-ueberzug", NULL};
+// const char *spcmd4[] = {TERMINAL, "-n", "sptrans", "-c", "sptrans", "-g", "140x30", "-e", "terminal-trans.sh", NULL};
 static Sp scratchpads[] = {
 	/* name          cmd  */
 	{"spterm",      spcmd1},
 	{"spranger",    spcmd2},
 	{"keepassxc",   spcmd3},
+	// {"sptrans",		spcmd4},
 };
 
 static const XPoint stickyicon[]    = { {0,0}, {4,0}, {4,8}, {2,6}, {0,8}, {0,0} }; /* represents the icon as an array of vertices */
@@ -61,22 +63,25 @@ static const Rule rules[] = {
 	/* class				   instance	            title	            tags mask    isfloating   monitor */
     { "Gimp",					NULL,       	    NULL,       	    0,            1,            -1 },
     { "Firefox",  		        NULL,       	    NULL,       	    1 << 8,       0,            -1 },
-    { "librewolf",  		    NULL,       	    NULL,       	    1 << 8,       0,            -1 },
+    { "Pale moon",  		    NULL,       	    NULL,       	    1 << 8,       0,            -1 },
+    { "LibreWolf",  		    NULL,       	    NULL,       	    1 << 8,       0,            -1 },
     { "Tor Browser",  		    NULL,       	    NULL,       	    1 << 7,       0,            -1 },
     { "Nyxt",					NULL,       	    NULL,       	    1 << 8,       0,            -1 },
     { "TelegramDesktop",        NULL,               NULL,               1 << 6,       0,            -1 },
     { "Signal",                 NULL,               NULL,               1 << 6,       0,            -1 },
+    { "mpv",                    NULL,               NULL,               1 << 5,       0,            -1 },
     { "tidal-hifi",             "tidal-hifi", 	    "tidal-hifi",       1 << 3,       0,            -1 },
     { "Galculator",             "galculator", 	    "galculator",       0,            1,            -1 },
     { "Gucharmap",              NULL,               NULL,               0,            1,            -1 },
-    { "mpv",                    NULL,               NULL,               1 << 5,       1,            -1 },
+    { "Pale moon",              NULL,               "Pale Moon Preferences",               0,            1,            -1 },
+    { "Pale moon",              NULL,               "Software Update",               0,            1,            -1 },
     { "Peek",                   "peek",             NULL,               0,            1,            -1 },
     { "Tk",                     "tk",               NULL,               0,            1,            -1 },
     { "Sxiv",                   NULL,               NULL,               0,            1,            -1 },
     { NULL,						"spterm",			NULL,				SPTAG(0),	  1,            -1 },
     { NULL,		  				"spfm",		    	NULL,		    	SPTAG(1),	  1,            -1 },
     { NULL,		  				"spmusic",	    	"ncmpcpp",			SPTAG(2),	  1,            -1 },
-    { NULL,		  				"spcode",	    	NULL,		    	SPTAG(3),	  1,            -1 },
+    { NULL,						"sptrans",			NULL,				SPTAG(3),	  1,            -1 },
 };
 
 /* layout(s) */
@@ -85,6 +90,7 @@ static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
+#include "horizgrid.c"
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* Default: Master on left, slaves on right */
@@ -92,6 +98,7 @@ static const Layout layouts[] = {
 	{ "[M]",      monocle },
 	{ "|M|",      centeredmaster },
 	{ ">M>",      centeredfloatingmaster },
+	{ "###",      horizgrid },
 };
 
 /* key definitions */
@@ -111,8 +118,6 @@ static const char *dmenucmd[] = { "dmenu_run", "-p", "Command:", NULL };
 static const char *roficmd[] = { "rofi", "-show", "run", "-disable-history", NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *dwmquit[] = { "dmenu-dwm-quit", NULL};
-// static const char *kittycmd[]  = { "kitty", NULL };
-// static const char *wezterm[]  = { "wezterm", NULL };
 
 /*
  * Xresources preferences to load at startup
@@ -147,7 +152,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_d,      incnmaster,     {.i = +1 } },
-	{ MODKEY,						XK_g,		togglesticky,	{0} },
+	{ MODKEY,						XK_g,	   togglesticky,   {0} },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
@@ -159,6 +164,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} }, /* monocle */
 	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[3]} }, /* centeredmaster */
 	{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[4]} }, /* centeredfloatingmaster */
+	{ MODKEY|ShiftMask,             XK_o,      setlayout,      {.v = &layouts[5]} }, /* centeredfloatingmaster */
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
@@ -174,6 +180,7 @@ static const Key keys[] = {
 	{ MODKEY,            		    XK_y,  	   togglescratch,  {.ui = 0 } },
 	// { MODKEY,            		    XK_u,      togglescratch,  {.ui = 1 } },
 	{ MODKEY,            		    XK_x,      togglescratch,  {.ui = 2 } },
+	// { MODKEY,            		    XK_e,      togglescratch,  {.ui = 3 } },
 
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
@@ -184,7 +191,6 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	// { MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 	{ MODKEY|ShiftMask,             XK_q,      spawn,          {.v = dwmquit } },
 };
 
