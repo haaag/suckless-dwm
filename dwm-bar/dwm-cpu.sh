@@ -3,6 +3,7 @@
 # Output: [ICON  10%]
 
 icon=""
+icon=""
 cyan_color="^c#4abaaf^"
 reset_color="^d^"
 

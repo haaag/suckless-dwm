@@ -5,7 +5,7 @@
 # Icons:     
 icon=""
 
-sensors_str=$(sensors | grep Package | awk '{print $4}' | sed 's/+//' | sed 's/°C//')
+sensors_str=$(sensors |grep temp1 | awk '{print $2}' | sed 's/+//' | sed 's/°C//')
 sensors_int=${sensors_str%.*}
 
 dwm_sensors() {
